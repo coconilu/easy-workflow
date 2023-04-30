@@ -111,6 +111,7 @@ npx commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact
 > 在 package.json 中添加配置 config.commitizen
 
 至此，执行命令 `npm run commit`，就可以交互式的生成符合规范的 commit message 了。
+但是并没有强制校验提交信息，所以还需要安装 husky 和 commitlint。
 
 ## 5. 借助 git hook（husky） 在提交代码阶段对文件的快速修复
 

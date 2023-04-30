@@ -102,8 +102,15 @@ module.exports = {
 2. 初始化 commitizen
 
 ```bash
-npx commitizen init cz-conventional-changelog --save-dev --save-exact
+pnpm i -D commitizen
+npx commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact
 ```
+
+> 这个指令执行两件事：
+> 安装 commitizen 和 cz-conventional-changelog
+> 在 package.json 中添加配置 config.commitizen
+
+至此，执行命令 `npm run commit`，就可以交互式的生成符合规范的 commit message 了。
 
 ## 5. 借助 git hook（husky） 在提交代码阶段对文件的快速修复
 

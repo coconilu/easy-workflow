@@ -80,16 +80,21 @@ pnpm i -D prettier
 安装依赖：
 
 ```bash
-pnpm i -D eslint-plugin-prettier eslint-config-prettier
+pnpm install -D eslint-plugin-prettier
+pnpm install -D --save-exact prettier
 ```
 
 在 .eslintrc.js 中添加配置：
 
 ```js
 module.exports = {
-  extends: ['others', 'plugin:prettier/recommended'], // 确保 prettier 在最后一个
+  extends: ['others', 'plugin:prettier/recommended'] // 确保 prettier 在最后一个
 };
 ```
+
+> 这会将 Prettier 规则添加到 ESLint 配置中，同时在执行 eslint --fix 时，Prettier 也会自动修复代码格式。
+> 这样做有个好处就是把 prettier 的格式化功能集成到 eslint 中，这样就不需要安装 prettier 插件了，而且也不会与 eslint 的格式化功能冲突了。
+> package.json 里的 lint-staged 也不需要再配置 prettier 了。
 
 ## 4. 提交规范
 

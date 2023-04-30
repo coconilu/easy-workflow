@@ -51,7 +51,7 @@ pnpm i -D prettier
   "printWidth": 80, // 每行代码长度（默认80）
   "tabWidth": 2, // 每个tab相当于多少个空格（默认2）
   "useTabs": false, // 是否使用tab进行缩进（默认false）
-  "semi": true, // 声明结尾使用分号(默认true)
+  "semi": false, // 声明结尾使用分号(默认true)
   "singleQuote": true, // 使用单引号（默认false）
   "quoteProps": "as-needed", // 对象属性的引号使用
   "jsxSingleQuote": false, // jsx中使用单引号（默认false）
@@ -89,7 +89,7 @@ pnpm install -D --save-exact prettier
 ```js
 module.exports = {
   extends: ['others', 'plugin:prettier/recommended'] // 确保 prettier 在最后一个
-};
+}
 ```
 
 > 这会将 Prettier 规则添加到 ESLint 配置中，同时在执行 eslint --fix 时，Prettier 也会自动修复代码格式。
@@ -113,17 +113,95 @@ npx commitizen init cz-conventional-changelog --pnpm --save-dev --save-exact
 至此，执行命令 `npm run commit`，就可以交互式的生成符合规范的 commit message 了。
 但是并没有强制校验提交信息，所以还需要安装 husky 和 commitlint。
 
-## 5. 借助 git hook（husky） 在提交代码阶段对文件的快速修复
+## 5. 借助 git hook（husky） 在提交代码阶段对文件的快速修复和对提交信息进行校验（commitlint）
 
-1. 安装 husky 和 lint-staged 、 commitlint
-2. 配置 package.json
+1. 安装 husky 和 commitlint
 
+```bash
+pnpm i -D husky @commitlint/cli @commitlint/config-conventional
 ```
+
+2. 初始化 husky 和 commitlint
+
+```bash
+npx husky-init && npm install
+npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
+```
+
+1. 安装 & 初始化 husky
+
+```bash
+pnpm dlx husky-init && pnpm install # pnpm
+```
+
+> 它做了这几件事：
+> 1、安装 husky
+> 2、添加一个 prepare 生命周期到 package.json
+> 3、添加一个示例到 .husky/pre-commit
+
+2. 添加更多的钩子
+
+```bash
+npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
+```
+
+3. 把自定义的钩子同步到.git/hooks
+
+```bash
+npx husky install
+```
+
+### 添加钩子，提交代码时自动修复
+
+添加 husky 钩子：
+
+```bash
+npx husky add .husky/pre-commit 'pnpm run lint-staged'
+```
+
+安装 lint-staged，来仅对暂存（staged）的文件执行 ESLint
+
+```bash
+pnpm i -D lint-staged
+```
+
+配置 lint-staged
+
+```JSON
 {
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
 ```
 
+### 添加钩子，提交代码时校验提交信息
+
+```bash
+npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
+```
+
+1. 安装 commitlint
+
+```bash
+pnpm i -D @commitlint/cli @commitlint/config-conventional
+```
+
+2. 配置 commitlint
+
+```bash
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+```
+
 ## 6. 文件名大小写敏感
+
+```bash
+git config core.ignorecase false
+```

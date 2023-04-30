@@ -30,3 +30,24 @@ indent_size = 2
 ```
 npm init @eslint/config
 ```
+
+### 借助 vscode 完成对文件的快速修复
+
+1. 下载 eslint 插件，作者是微软
+2. 使用指令：按快捷键 Ctrl+Shift+P 打开命令面板，然后输入并选择“ESLint: Fix all auto-fixable Problems”
+
+## 3. 提交规范
+
+1. 安装 commitizen 和 cz-conventional-changelog
+2. 初始化 commitizen
+
+```bash
+npx commitizen init cz-conventional-changelog --save-dev --save-exact
+```
+
+
+## 4. 借助 git hook（husky） 在提交代码阶段对文件的快速修复
+
+1. 安装 husky 和 lint-staged 、 commitlint
+
+## 5. 文件名大小写敏感

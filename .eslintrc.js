@@ -17,5 +17,6 @@ module.exports = {
     'vue'
   ],
   rules: {
+    'array-callback-return': ['error', { checkForEach: true }]
   }
 }

@@ -37,6 +37,43 @@ pnpm i -D @typescript-eslint/parser # 可能需要额外安装的依赖
 1. 下载 eslint 插件，作者是微软
 2. 使用指令：按快捷键 Ctrl+Shift+P 打开命令面板，然后输入并选择"ESLint: Fix all auto-fixable Problems"
 
+### 添加 tsconfig 文件
+
+```JSON
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
 ## 3. prettier
 
 1. 下载 prettier
@@ -206,4 +243,10 @@ echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitl
 
 ```bash
 git config core.ignorecase false
+```
+
+## 7. 特殊情况可以跳过校验
+
+```bash
+git commit -m 'feat: xxx' --no-verify
 ```

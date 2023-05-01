@@ -5,17 +5,16 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-essential',
-    'standard-with-typescript'
+    'standard-with-typescript',
+    'plugin:prettier/recommended'
   ],
-  overrides: [
-  ],
+  overrides: [],
   parserOptions: {
+    project: './tsconfig.json',
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: [
-    'vue'
-  ],
+  plugins: ['vue'],
   rules: {
     'array-callback-return': ['error', { checkForEach: true }]
   }

@@ -29,6 +29,7 @@ indent_size = 2
 
 ```bash
 npm init @eslint/config
+pnpm i -D @typescript-eslint/parser # 可能需要额外安装的依赖
 ```
 
 ### 借助 vscode 完成对文件的快速修复
@@ -81,6 +82,7 @@ pnpm i -D prettier
 
 ```bash
 pnpm install -D eslint-plugin-prettier
+pnpm install -D eslint-config-prettier
 pnpm install -D --save-exact prettier
 ```
 

@@ -249,4 +249,5 @@ git config core.ignorecase false
 
 ```bash
 git commit -m 'feat: xxx' --no-verify
+git commit -n -m 'feat: xxx' #同上
 ```
